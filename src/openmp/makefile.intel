@@ -1,0 +1,28 @@
+CXX=icc
+CXXFLAGS=-O3 -xhost
+
+OMPFLAGS=-openmp
+
+INCPATH=-I.
+
+EXECS = dflp dflp_p
+
+all: dflp
+
+dflp: dflp.o dflpio.o
+	$(CXX) -o dflp $(OMPFLAGS) dflp.o dflpio.o
+
+dflp_n: dflp_no_cost_alloc.o dflpio.o
+	$(CXX) -o dflp $(OMPFLAGS) dflp_no_cost_alloc.o dflpio.o
+
+dflp_p: dflp_p.o dflpio_p.o
+	$(CXX) -o dflp -pg $(OMPFLAGS) dflp_p.o dflpio_p.o
+
+%.o: %.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) $(OMPFLAGS) $< -o $@
+
+%_p.o: %.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -pg $(OMPFLAGS) $< -o $@
+
+clean:
+	/bin/rm -rf *.o $(EXECS) *~

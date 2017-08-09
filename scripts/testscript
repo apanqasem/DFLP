@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH -J Best_Layouts
+# Job name
+#SBATCH -o Best_Layouts.o%j
+# Name of stdout output file(%j expands to jobId)
+#SBATCH -e Best_Layouts.o%j
+# Name of stderr output file(%j expands to jobId)
+
+#SBATCH -p normal
+# Submit to the 'normal' or 'development' queue
+#SBATCH -N 2
+# Total number of nodes requested (16 cores/node)
+#SBATCH -n 32
+# Total number of mpi tasks requested
+#SBATCH -t 01:30:00
+# Run time (hh:mm:ss) 
+#SBATCH -A ORandHPC_Novoa_team
+ibrun -o 0 -n 1 ./out  input.txt flowsyr1.txt flowsyr2.txt flowsyr3.txt flowsyr4.txt flowsyr5.txt &
+ibrun -o 30 -n 1 ./out input1.txt flow1.txt flow2.txt flow3.txt flow4.txt flow5.txt &
+wait
+

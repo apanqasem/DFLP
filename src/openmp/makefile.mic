@@ -1,0 +1,22 @@
+CXX=icpc
+CXXFLAGS=-O3 -xhost -opt-report-phase=offload
+
+OMPFLAGS=-openmp
+
+INCPATH=-I.
+
+EXECS = dflp dflp_p
+
+all: dflp
+
+dflp: dflp_mic.o dflpio.o
+	$(CXX) -o dflp $(OMPFLAGS) $(CXXFLAGS) dflp_mic.o dflpio.o
+
+dflp_mic.o: dflp_mic.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) $(OMPFLAGS) dflp_mic.cpp
+
+dflpio.o: dflpio.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) dflpio.cpp
+
+clean:
+	/bin/rm -rf *.o $(EXECS) *~

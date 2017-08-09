@@ -1,0 +1,21 @@
+Files in this directory 
+-----------------------
+
+
+dflpio.h, dflpio.cpp		I/O library
+
+
+dflp.cpp  			OpenMP implementation of dflp
+dflp_dyn_rc.cpp  		OpenMP implementation of dflp with dynamic RC
+				computation. Requires significantly less
+				memory 
+
+ 
+dflp_old.cpp			older OpenMP implmentation of dflp
+
+makefile			makefile for targets
+				  dflp : basic OpenMP implementation 
+				  dflp_dyn_rc : OpenMP with dynamic RC
+
+
+
